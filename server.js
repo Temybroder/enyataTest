@@ -10,6 +10,7 @@ const apiErrorHandler = require('./api/v1/middlewares/errorManager/apiErrorHandl
 app.use(apiErrorHandler);
 
 // Express body parser
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
