@@ -2,9 +2,15 @@ const { User } = require('../../../models');
 const ApiError = require('../middlewares/errorManager/apiErrors')
 
 const createUser = (req, res) => {
-    User.findOne({ email: req.body.email }).then(user => {
-      if (!user) {
-        errors.push({ msg: 'Error: User not created. Confirm User data is correctly filled in'});
+    User.findOne({     
+      where: {
+      email: req.body.email
+      }}).then(user => {
+      if (user) {
+        errors.push({ msg: 'Error: User already exists. Confirm User data is correctly filled in, or login'});
+        if(errors.length > 1){
+          ApiError.badRequest('Incorrectly filled data. Please try again!')
+        }
       } else {
         let newUser = {
           name: req.body.name,
