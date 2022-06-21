@@ -1,11 +1,14 @@
-
+const express = require('express');
+const app = express();
    const validationHandler = (req, res, next) => {
       let errors = [];
+      console.log(req.body);
+      const password = req.body.password;
             if(req.method == "GET" && req.originalUrl == "/read_user"){
-            if (!req.name ||!req.userEmail || !req.password) {
+            if (!req.body.name ||!req.body.email || !req.body.password) {
                 errors.push({ msg: 'Missing fields: Please enter all fields' });
             }
-            if (password.length < 8) {
+            if (req.body.password.length < 8) {
                 errors.push({ msg: 'Password must be at least 8 characters' });
             }
             if (errors.length > 0) {
@@ -17,7 +20,7 @@
                 return next();
             }}
       else {
-        if (!req.userEmail || !req.password) {
+        if (!req.body.email || !req.body.password) {
             errors.push({ msg: 'Missing fields: Please enter all fields' });
           }
           if (password.length < 8) {
