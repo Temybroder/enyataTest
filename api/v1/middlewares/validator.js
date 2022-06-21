@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
    const validationHandler = (req, res, next) => {
       let errors = [];
-      console.log(req.body);
       const password = req.body.password;
             if(req.method == "GET" && req.originalUrl == "/read_user"){
             if (!req.body.name ||!req.body.email || !req.body.password) {
